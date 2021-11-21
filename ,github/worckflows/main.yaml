@@ -1,0 +1,38 @@
+name: Code analyzer
+on:
+  push:
+
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v2
+
+      - name: install flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: setup project
+        run: flutter pub get
+
+      - name: check format
+        run: flutter format -l 120 --set-exit-if-changed .
+
+  check-analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v2
+
+      - name: install flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: setup project
+        run: flutter pub get
+
+      - name: analize code
+        run: flutter analyze
